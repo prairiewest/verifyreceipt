@@ -1,0 +1,5 @@
+{
+    "require": {
+        "aporat/store-receipt-validator": "^4.4"
+    }
+}
