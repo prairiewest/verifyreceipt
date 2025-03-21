@@ -39,24 +39,27 @@ if ($appPackage == "" || $productID == "" || $purchaseToken == "" || $purchaseTy
 
 // Proceed if no errors
 if ($error == 0) {
+    try {
+        if ($purchaseType == "subscription") {
+            $response = $validator->setPackageName($appPackage)
+                ->setProductId($productID)
+                ->setPurchaseToken($purchaseToken)
+                ->validateSubscription();
+        } else {
+            $response = $validator->setPackageName($appPackage)
+                ->setProductId($productID)
+                ->setPurchaseToken($purchaseToken)
+                ->validatePurchase();
+        }
 
-    // Subscription purchase
-    if ($purchaseType == "subscription") {
-        try {
-          $response = $validator->setPackageName($appPackage)
-            ->setProductId($productID)
-            ->setPurchaseToken($purchaseToken)
-            ->validateSubscription();
-
-          if ($response->getStartTimeMillis() > 0) {
+        if ($response->getStartTimeMillis() > 0) {
             // Convert milliseconds to seconds
             $endDate = round($response->getStartTimeMillis() / 1000, 0);
-          }
-
-        } catch (Exception $e){
-            $error = 1;
-            $errorMsg = $e->getMessage();
         }
+
+    } catch (Exception $e){
+        $error = 1;
+        $errorMsg = $e->getMessage();
     }
 
 }
