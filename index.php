@@ -20,6 +20,7 @@ $productID = purify(@$_REQUEST["product"],0);       // eg: com.example.myapp.pro
 $purchaseToken = purify(@$_REQUEST["token"],0);     // Some long string of text
 $purchaseType = purify(@$_REQUEST["type"],0);       // eg: subscription, product
 
+// Set up the validator for the appropriate store
 if ($targetStore == "google") {
     require_once("setup_google.php")
 } elseif ($targetStore == "apple") {
@@ -31,7 +32,15 @@ if ($targetStore == "google") {
     $errorMsg = "Target store unknown: " . $targetStore;
 }
 
+// Check that all parameters were received
+if ($appPackage == "" || $productID == "" || $purchaseToken == "" || $purchaseType == "") {
+    $error = 1;
+}
+
+// Proceed if no errors
 if ($error == 0) {
+
+    // Subscription purchase
     if ($purchaseType == "subscription") {
         try {
           $response = $validator->setPackageName($appPackage)
@@ -49,6 +58,7 @@ if ($error == 0) {
             $errorMsg = $e->getMessage();
         }
     }
+
 }
 
 $results = new stdClass;
