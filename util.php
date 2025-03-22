@@ -3,6 +3,9 @@
 // Removes bad characters from input
 function purify($input,$allow_whitespace=1)
 {
+    if ($input == "") {
+        return "";
+    }
     $output = strip_tags($input);
     if ($allow_whitespace) {
         $output = trim(preg_replace("/[^\w@+.\-\s\/]/", "", $output));

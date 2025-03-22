@@ -5,8 +5,8 @@ ini_set('display_errors', 0);
 header('Content-type: application/json');
 
 require_once("./vendor/autoload.php");
-require_once("config.php")
-require_once("util.php")
+require_once("config.php");
+require_once("util.php");
 
 // Details to retrieve
 $error = 0;
@@ -22,11 +22,11 @@ $purchaseType = purify(@$_REQUEST["type"],0);       // eg: subscription, product
 
 // Set up the validator for the appropriate store
 if ($targetStore == "google") {
-    require_once("setup_google.php")
+    require_once("setup_google.php");
 } elseif ($targetStore == "apple") {
-    require_once("setup_apple.php")
+    require_once("setup_apple.php");
 } elseif ($targetStore == "amazon") {
-    require_once("setup_amazon.php")
+    require_once("setup_amazon.php");
 } else {
     $error = 1;
     $errorMsg = "Target store unknown: " . $targetStore;
