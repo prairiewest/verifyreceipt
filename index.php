@@ -12,7 +12,7 @@ require_once("util.php");
 // Details to retrieve
 $error = 0;
 $errorMsg = "";
-$endDate = 0;
+$subEndDate = 0;
 
 // App purchase details
 $targetStore = purify(@$_REQUEST["store"],0);       // eg: google, apple, amazon
@@ -48,9 +48,9 @@ if ($error == 0) {
                 ->setProductId($productID)
                 ->setPurchaseToken($purchaseToken)
                 ->validateSubscription();
-            if ($response->getStartTimeMillis() > 0) {
+            if ($response->getExpiryTimeMillis() > 0) {
                 // Convert milliseconds to seconds
-                $endDate = round($response->getStartTimeMillis() / 1000, 0);
+                $subEndDate = round($response->getExpiryTimeMillis() / 1000, 0);
             }
 
         } else if ($purchaseType == "product") {
@@ -75,7 +75,9 @@ $results->error = $error;
 $results->error_msg = $errorMsg;
 $results->package = $appPackage;
 $results->product_id = $productID;
-$results->end_date = $endDate;
+if ($subEndDate > 0) {
+    $results->sub_end_date = $subEndDate;
+}
 
 // Flush output buffers and output only the needed JSON
 ob_clean();
