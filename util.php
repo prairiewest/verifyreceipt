@@ -27,4 +27,3 @@ function purify($input,$allow_whitespace=1)
 }
 
 ?>
-

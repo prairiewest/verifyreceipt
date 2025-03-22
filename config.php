@@ -6,4 +6,3 @@
     // The name of this application
     $applicationName = 'IAP_Verifier';
 ?>
-

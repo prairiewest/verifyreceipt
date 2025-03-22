@@ -2,6 +2,7 @@
 
 error_reporting(0);
 ini_set('display_errors', 0);
+ob_start();
 header('Content-type: application/json');
 
 require_once("./vendor/autoload.php");
@@ -76,6 +77,8 @@ $results->package = $appPackage;
 $results->product_id = $productID;
 $results->end_date = $endDate;
 
+// Flush output buffers and output only the needed JSON
+ob_clean();
 echo json_encode($results);
-
+ob_end_flush();
 ?>
