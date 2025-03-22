@@ -35,6 +35,7 @@ if ($targetStore == "google") {
 // Check that all parameters were received
 if ($appPackage == "" || $productID == "" || $purchaseToken == "" || $purchaseType == "") {
     $error = 1;
+    $errorMsg = "One or more required parameters is missing";
 }
 
 // Proceed if no errors
