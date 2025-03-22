@@ -1,6 +1,6 @@
 # verifyreceipt
 
-Verify mobile IAP receipts.
+Verify mobile IAP receipts.  This code currently only supports Google subscription verification.
 
 This is the back end (server) code for verifying receipts from in-app purchases. You must already be running a server and it must already have proper DNS and SSL certificates. You will also need PHP 8.1 or higher and Composer installed.
 
@@ -24,7 +24,7 @@ It will look something like this:
 }
 ```
 
-Check out this code into your server web root, so that it lives at a URL like https://example.com/verifyreceipt/
+Check out this code into your server web root, so that it lives at a URL like `https://example.com/verifyreceipt/`
 
 Edit the file config.php and replace with the path to your service account credentials file.
 
