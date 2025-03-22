@@ -79,4 +79,3 @@ $results->end_date = $endDate;
 echo json_encode($results);
 
 ?>
-
