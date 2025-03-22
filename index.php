@@ -75,7 +75,6 @@ $results->error_msg = $errorMsg;
 $results->package = $appPackage;
 $results->product_id = $productID;
 $results->end_date = $endDate;
-$results->response = $response;
 
 echo json_encode($results);
 
