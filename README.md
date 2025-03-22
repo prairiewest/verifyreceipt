@@ -2,7 +2,11 @@
 
 Verify mobile IAP receipts.
 
-The file `service-account.json` must exist two directories above the code here.  It will look something like this:
+This is the back end (server) code for verifying receipts from in-app purchases. You must already be running a server and it must already have proper DNS and SSL certificates. You will also need PHP 8.1 or higher and Composer installed.
+
+You supply the file `service-account.json` and it must exist above the code here.  You can read about [setting up a Google Service Account](https://prairiewest.net/2025/03/verifying-iap-subscription-receipts-for-google-play/) on my blog.
+
+It will look something like this:
 
 ```
 {
@@ -19,3 +23,11 @@ The file `service-account.json` must exist two directories above the code here. 
   "universe_domain": "googleapis.com"
 }
 ```
+
+Check out this code into your server web root, so that it lives at a URL like https://example.com/verifyreceipt/
+
+Edit the file config.php and replace with the path to your service account credentials file.
+
+You can load the URL in your web browser to test it, it should normally give an error about some missing parameters.
+
+This is the back end code for [IAP Badger 2](https://github.com/prairiewest/iap_badger2).
