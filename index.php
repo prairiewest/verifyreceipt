@@ -52,11 +52,14 @@ if ($error == 0) {
                 $endDate = round($response->getStartTimeMillis() / 1000, 0);
             }
 
-        } else {
+        } else if ($purchaseType == "product") {
             $response = $validator->setPackageName($appPackage)
                 ->setProductId($productID)
                 ->setPurchaseToken($purchaseToken)
                 ->validatePurchase();
+        } else {
+            $error = 1;
+            $errorMsg = "Unknown purchase type: " . $purchaseType;
         }
 
     } catch (Exception $e){
