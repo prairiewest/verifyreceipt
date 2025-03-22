@@ -39,6 +39,7 @@ if ($appPackage == "" || $productID == "" || $purchaseToken == "" || $purchaseTy
 }
 
 // Proceed if no errors
+$response = "";
 if ($error == 0) {
     try {
         if ($purchaseType == "subscription") {
@@ -46,16 +47,16 @@ if ($error == 0) {
                 ->setProductId($productID)
                 ->setPurchaseToken($purchaseToken)
                 ->validateSubscription();
+            if ($response->getStartTimeMillis() > 0) {
+                // Convert milliseconds to seconds
+                $endDate = round($response->getStartTimeMillis() / 1000, 0);
+            }
+
         } else {
             $response = $validator->setPackageName($appPackage)
                 ->setProductId($productID)
                 ->setPurchaseToken($purchaseToken)
                 ->validatePurchase();
-        }
-
-        if ($response->getStartTimeMillis() > 0) {
-            // Convert milliseconds to seconds
-            $endDate = round($response->getStartTimeMillis() / 1000, 0);
         }
 
     } catch (Exception $e){
@@ -68,7 +69,10 @@ if ($error == 0) {
 $results = new stdClass;
 $results->error = $error;
 $results->error_msg = $errorMsg;
+$results->package = $$appPackage;
+$results->product_id = $productID;
 $results->end_date = $endDate;
+$results->response = $response;
 
 echo json_encode($results);
 
