@@ -72,7 +72,7 @@ if ($error == 0) {
 $results = new stdClass;
 $results->error = $error;
 $results->error_msg = $errorMsg;
-$results->package = $$appPackage;
+$results->package = $appPackage;
 $results->product_id = $productID;
 $results->end_date = $endDate;
 $results->response = $response;
