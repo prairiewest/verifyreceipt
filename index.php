@@ -78,6 +78,7 @@ $results->product_id = $productID;
 if ($subEndDate > 0) {
     $results->sub_end_date = $subEndDate;
 }
+$result->raw_response = $response;
 
 // Flush output buffers and output only the needed JSON
 ob_clean();
