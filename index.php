@@ -75,10 +75,10 @@ $results->error = $error;
 $results->error_msg = $errorMsg;
 $results->package = $appPackage;
 $results->product_id = $productID;
+$results->raw_response = $response;
 if ($subEndDate > 0) {
     $results->sub_end_date = $subEndDate;
 }
-$result->raw_response = $response;
 
 // Flush output buffers and output only the needed JSON
 ob_clean();
