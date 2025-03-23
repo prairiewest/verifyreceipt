@@ -13,6 +13,7 @@ require_once("util.php");
 $error = 0;
 $errorMsg = "";
 $subEndDate = 0;
+$isValid = 0;
 
 // App purchase details
 $targetStore = purify(@$_REQUEST["store"],0);       // eg: google, apple, amazon
@@ -40,7 +41,6 @@ if ($appPackage == "" || $productID == "" || $purchaseToken == "" || $purchaseTy
 }
 
 // Proceed if no errors
-$response = "";
 if ($error == 0) {
     try {
         if ($purchaseType == "subscription") {
@@ -48,9 +48,13 @@ if ($error == 0) {
                 ->setProductId($productID)
                 ->setPurchaseToken($purchaseToken)
                 ->validateSubscription();
-            if ($response->getExpiryTimeMillis() > 0) {
-                // Convert milliseconds to seconds
-                $subEndDate = round($response->getExpiryTimeMillis() / 1000, 0);
+
+            if ($response->isValid()) {
+                $isValid = 1;
+                if ($response->getExpiryTimeMillis() > 0) {
+                    // Convert milliseconds to seconds
+                    $subEndDate = round($response->getExpiryTimeMillis() / 1000, 0);
+                }
             }
 
         } else if ($purchaseType == "product") {
@@ -58,12 +62,16 @@ if ($error == 0) {
                 ->setProductId($productID)
                 ->setPurchaseToken($purchaseToken)
                 ->validatePurchase();
+            if ($response->isValid()) {
+                $isValid = 1;
+            }
+
         } else {
             $error = 1;
             $errorMsg = "Unknown purchase type: " . $purchaseType;
         }
 
-    } catch (Exception $e){
+    } catch (Exception $e) {
         $error = 1;
         $errorMsg = $e->getMessage();
     }
@@ -75,7 +83,7 @@ $results->error = $error;
 $results->error_msg = $errorMsg;
 $results->package = $appPackage;
 $results->product_id = $productID;
-$results->raw_response = $response;
+$results->valid = $isValid;
 if ($subEndDate > 0) {
     $results->sub_end_date = $subEndDate;
 }
