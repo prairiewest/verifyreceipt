@@ -49,12 +49,12 @@ if ($error == 0) {
                 ->setPurchaseToken($purchaseToken)
                 ->validateSubscription();
 
-            if ($response->isValid()) {
+            $paymentState = $response->getPaymentState();
+
+            if ($response->getExpiryTimeMillis() > 0) {
                 $isValid = 1;
-                if ($response->getExpiryTimeMillis() > 0) {
-                    // Convert milliseconds to seconds
-                    $subEndDate = round($response->getExpiryTimeMillis() / 1000, 0);
-                }
+                // Convert milliseconds to seconds
+                $subEndDate = round($response->getExpiryTimeMillis() / 1000, 0);
             }
 
         } else if ($purchaseType == "product") {
