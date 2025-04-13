@@ -84,6 +84,7 @@ $results->error_msg = $errorMsg;
 $results->package = $appPackage;
 $results->product_id = $productID;
 $results->valid = $isValid;
+$results->token = $purchaseToken;
 if ($subEndDate > 0) {
     $results->sub_end_date = $subEndDate;
 }
