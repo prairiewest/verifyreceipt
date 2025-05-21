@@ -132,6 +132,9 @@ if ($termSku != "") {
 if ($purchaseToken != "") {
     $results->token = $purchaseToken;
 }
+if ($receiptid != "") {
+    $results->token = $receiptid;
+}
 if ($subEndDate > 0) {
     $results->sub_end_date = $subEndDate;
 }
