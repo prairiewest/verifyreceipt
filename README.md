@@ -31,3 +31,5 @@ Edit the file config.php and replace with the path to your service account crede
 You can load the URL in your web browser to test it, it should normally give an error about some missing parameters.
 
 This is the back end code for [IAP Badger 2](https://github.com/prairiewest/iap_badger2).
+
+This project relies on [https://github.com/aporat/store-receipt-validator](https://github.com/aporat/store-receipt-validator) version 4.4.3.
