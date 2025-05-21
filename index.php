@@ -15,6 +15,7 @@ $errorMsg = "";
 $subEndDate = 0;
 $isValid = 0;
 $purchaseToken = "";
+$termSku = "";
 
 // App purchase details common to all stores
 $targetStore = purify(@$_REQUEST["store"],0);       // eg: google, apple, amazon
@@ -102,8 +103,8 @@ if ($error == 0) {
                         }
                     }
                     if (array_key_exists("termSku", $rawResponse)) {
-                        // Update the product ID returned to match what was actually purchased for the subscription term
-                        $productID = $rawResponse["termSku"];
+                        // Return what was actually purchased for the subscription term
+                        $termSku = $rawResponse["termSku"];
                     }
               }
             } else {
@@ -125,6 +126,9 @@ $results->error_msg = $errorMsg;
 $results->package = $appPackage;
 $results->product_id = $productID;
 $results->valid = $isValid;
+if ($termSku != "") {
+    $results->term_sku = $termSku;
+}
 if ($purchaseToken != "") {
     $results->token = $purchaseToken;
 }
